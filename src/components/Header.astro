@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 <header>
   <div class="container">
     <nav>
-      <a href="/" class="logo">Jennifer Hoyt</a>
+      <a href="/" class="logo">Kaizen<span>WebDev</span></a>
       <ul>
         <li>
           <a href="/" class={currentPath === '/' ? 'active' : ''}>About</a>
@@ -39,9 +39,14 @@ const currentPath = Astro.url.pathname;
   }
 
   .logo {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.125rem;
-    color: var(--color-text);
+    color: var(--color-primary);
+  }
+
+  .logo span {
+    font-weight: 700;
+    color: var(--color-accent);
   }
 
   .logo:hover {

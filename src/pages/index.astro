@@ -11,23 +11,32 @@ import Footer from '../components/Footer.astro';
   <main>
     <div class="container">
       <section class="hero">
-        <h1>Hi, I'm Jeni</h1>
+        <h1>Jeni Hoyt</h1>
         <h2>Front-end developer and Acccessibility Advocate
         </h2>
       </section>
 
       <section class="services">
         <h2>What I do</h2>
-        <ul>
-          <li>Web Development - Front-end HTML/CSS/JS and custom WordPress solutions with modern, responsive design</li>
-          <li>Accessibility Testing - DHS Trusted Tester certified, focused on building WCAG-compliant experiences</li>
-          <li>Organization & Documentation - Thorough project docs, organized workflows, and timely delivery</li>
-        </ul>
+        <div class="services-list">
+          <article>
+            <h3>Web Development</h3>
+            <p>Front-end HTML/CSS/JS and custom WordPress solutions with modern, responsive design</p>
+          </article>
+          <article>
+            <h3>Accessibility Testing</h3>
+            <p>DHS Trusted Tester certified, focused on building WCAG-compliant experiences</p>
+          </article>
+          <article>
+            <h3>Organization & Documentation</h3>
+            <p>Thorough project docs, organized workflows, and timely delivery</p>
+          </article>
+        </div>
  
       </section>
 
       <section class="skills">
-        <h2>Skills & Technologies</h2>
+        <h2>What I Know</h2>
         <ul class="skills-list">
           <li>HTML</li>
           <li>CSS</li>
@@ -56,32 +65,65 @@ import Footer from '../components/Footer.astro';
   }
 
   .hero {
-    margin-bottom: 4rem;
+    
+  }
+
+  .hero h1 {
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .hero h2 {
+    color: var(--color-text);
+    font-size: 3rem;
   }
 
   .intro {
     font-size: 1.25rem;
     color: var(--color-text-muted);
-    max-width: 600px;
   }
 
   section {
-    margin-bottom: 3rem;
+    padding-block: 3rem;
+  }
+
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(2, auto);
+    gap: 1.4rem;
+  }
+
+  .services-list article {
+    padding: 1.5rem;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: 10px;
+    
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    gap: 0.5rem;
   }
 
   .skills-list {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 1rem; */
+    columns: 3;
+    padding-inline-start: 2rem;
   }
 
   .skills-list li {
-    padding: 0.75rem 1rem;
+    /* padding: 0.75rem 1rem;
     background-color: #f8f8f8;
     border-radius: 4px;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border); */
   }
 
   @media (max-width: 768px) {
