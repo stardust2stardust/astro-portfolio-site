@@ -1,0 +1,76 @@
+---
+// src/pages/projects.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+// Add your projects here
+const projects = [
+  {
+    title: "Project One",
+    description: "A brief description of what this project does and the problem it solves.",
+    technologies: ["React", "TypeScript", "CSS"],
+    github: "https://github.com/yourusername/project-one",
+    demo: "https://project-one-demo.com"
+  },
+  {
+    title: "Project Two",
+    description: "Another project showcasing different skills and technologies.",
+    technologies: ["Node.js", "Express", "MongoDB"],
+    github: "https://github.com/yourusername/project-two"
+  },
+  {
+    title: "Project Three",
+    description: "A third project that demonstrates your range and capabilities.",
+    technologies: ["Astro", "JavaScript", "HTML/CSS"],
+    github: "https://github.com/yourusername/project-three",
+    demo: "https://project-three-demo.com"
+  }
+];
+---
+
+<Layout title="Projects - Jeni Hoyt" description="Portfolio projects and web development work">
+  <Header />
+  
+  <main>
+    <div class="container">
+      <h1>Projects</h1>
+      <p class="intro">
+        Here are some of the projects I've worked on. Each one represents a different 
+        challenge and learning opportunity.
+      </p>
+
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard {...project} />
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: 2rem;
+  }
+</style>

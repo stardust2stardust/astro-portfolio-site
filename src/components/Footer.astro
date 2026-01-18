@@ -1,0 +1,48 @@
+---
+// src/components/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://linkedin.com/in/jenihoyt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:jenihoyt23@gmail.com">Contact Me</a>
+    </div>
+    <p class="copyright">© {year} Jennifer Hoyt. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    margin-top: auto;
+    border-top: 1px solid var(--color-border);
+    padding: 2rem 0;
+    margin-top: 4rem;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+  }
+
+  .links {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .copyright {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .links {
+      gap: 1.5rem;
+    }
+  }
+</style>
