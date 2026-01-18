@@ -21,6 +21,8 @@ const { title, description = "Portfolio of Jennifer Hoyt - Web Developer" } = As
     <title>{title}</title>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <slot />
   </body>
 </html>
@@ -78,6 +80,12 @@ const { title, description = "Portfolio of Jennifer Hoyt - Web Developer" } = As
     text-decoration: underline;
   }
 
+  :focus-visible {
+    outline: 3px dashed var(--color-accent);
+    outline-offset: 4px;
+
+  }
+
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     font-weight: 700;
@@ -103,6 +111,22 @@ const { title, description = "Portfolio of Jennifer Hoyt - Web Developer" } = As
   p {
     margin-bottom: 1rem;
   }
+
+  .skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 0;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+  padding: 0.5rem 1rem;
+}
 
   @media (max-width: 768px) {
     h1 {
