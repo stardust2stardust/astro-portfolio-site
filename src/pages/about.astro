@@ -1,0 +1,45 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+---
+
+<Layout title="About - Jeni Hoyt" description="About Jeni.">
+  <Header />
+  
+  <main id="main-content">
+    <div class="container">
+      <h1>About Me</h1>
+      <p class="intro">
+       I'm a front-end developer who specializes in web accessibility and loves translating designs into clean, semantic web experiences. I consider myself a lifelong learner and make an effort to stay current with changes in core front-end technologies. 
+I decided to specialize in web accessibility when I realized how much of the web is still inaccessible to so many people. And since I love to find problems and fix them, testing and remediating accessibility issues comes naturally to me.
+I'm a DHS Certified Trusted Tester for Web, I'm currently pursuing my CPACC certification, and I regularly perform automated and manual accessibility testing.
+I'm looking for a role where accessibility is the focus — whether that's testing, remediation, conformance analysis, or some combination. I think my background as a developer makes me a stronger accessibility professional: I don't just find the issues, I understand where they come from and how to fix them.
+</p>
+    
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+
+</style>
