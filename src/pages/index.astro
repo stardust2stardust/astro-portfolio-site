@@ -3,6 +3,9 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import trustedTesterBadge from '../assets/508tt-badge.jpg'
+import { Image } from 'astro:assets';
+import iaapMembershipBadge from '../assets/professional-member.png';
 ---
 
 <Layout title="Jeni Hoyt - Web Developer" description="Front-end developer specializing in accessible, responsive HTML/CSS and inclusive web design">
@@ -12,8 +15,13 @@ import Footer from '../components/Footer.astro';
     <div class="container">
       <section class="hero">
         <h1>Jeni Hoyt</h1>
-        <h2>Front-end developer and Acccessibility Advocate
+        <h2>Front-end developer and Acccessibility Specialist
         </h2>
+        <div class="badge-container">
+          <Image src={trustedTesterBadge} alt="DHS Trusted Tester Certified" width={80} height={80} />
+        <Image src={iaapMembershipBadge} alt="IAAP Professional Member" width={80} height={80} />
+        </div>
+        
       </section>
 
       <section class="services">
