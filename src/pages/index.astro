@@ -3,60 +3,83 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects.js';
 import trustedTesterBadge from '../assets/508tt-badge.jpg'
 import { Image } from 'astro:assets';
 import iaapMembershipBadge from '../assets/professional-member.png';
+
+const featuredProjects = projects.filter((project) => project.featured);
 ---
 
-<Layout title="Jeni Hoyt - Web Developer" description="Front-end developer specializing in accessible, responsive HTML/CSS and inclusive web design">
+<Layout title="Jeni Hoyt - Front-End Developer & Accessibility Specialist" description="Front-end developer and DHS Trusted Tester certified accessibility specialist. WCAG audits, remediation, and accessible web development.">
   <Header />
   
   <main id="main-content">
     <div class="container">
       <section class="hero">
         <h1>Jeni Hoyt</h1>
-        <p class="subtitle">Front-end developer and Accessibility Specialist
+        <p class="subtitle">Front-end developer and Accessibility Specialist</p>
+        <p class="intro">
+          I audit websites for WCAG conformance and fix what I find, and I build
+          accessible front ends from the start.
         </p>
+        <div class="cta">
+          <a href="/projects" class="button button-primary">View my projects</a>
+          <a href="mailto:jenihoyt23@gmail.com" class="button button-secondary">Get in touch</a>
+        </div>
         <div class="badge-container">
           <Image src={trustedTesterBadge} alt="DHS Trusted Tester Certified" width={80} height={80} />
           <Image src={iaapMembershipBadge} alt="IAAP Professional Member" width={80} height={80} />
         </div>
-        
       </section>
 
       <section class="services">
         <h2>What I do</h2>
         <div class="services-list">
           <article>
-            <h3>Web Development</h3>
-            <p>Front-end HTML/CSS/JS and custom WordPress solutions with modern, responsive design</p>
+            <h3>Accessibility Auditing &amp; Remediation</h3>
+            <p>WCAG 2.1 AA audits using manual and automated testing, VPAT reporting, and clear, prioritized fixes. DHS Trusted Tester certified.</p>
           </article>
           <article>
-            <h3>Accessibility Testing</h3>
-            <p>DHS Trusted Tester certified, focused on building WCAG-compliant experiences</p>
-          </article>
-          <article>
-            <h3>Organization & Documentation</h3>
-            <p>Thorough project docs, organized workflows, and timely delivery</p>
+            <h3>Accessible Front-End Development</h3>
+            <p>Semantic, responsive HTML, CSS and JavaScript, plus React and custom WordPress, built to meet WCAG from the start.</p>
           </article>
         </div>
- 
+      </section>
+
+      <section class="selected-work">
+        <h2>Selected work</h2>
+        <div class="projects-grid">
+          {featuredProjects.map((project) => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+        <p class="all-projects"><a href="/projects">See all projects</a></p>
       </section>
 
       <section class="skills">
         <h2>What I Know</h2>
+        <h3>Accessibility</h3>
+        <ul class="skills-list">
+          <li>WCAG 2.1 AA auditing</li>
+          <li>VPAT reporting</li>
+          <li>DHS Trusted Tester process</li>
+          <li>Manual &amp; automated testing</li>
+          <li>Screen reader testing (VoiceOver)</li>
+          <li>ARIA patterns &amp; focus management</li>
+        </ul>
+        <h3>Development</h3>
         <ul class="skills-list">
           <li>HTML</li>
           <li>CSS</li>
           <li>JavaScript</li>
           <li>React</li>
-          <li>WordPress & PHP</li>
-          <li>Accessibility Testing</li>
-          <li>Git & Version Control</li>
-          <li>Figma & Design Tools</li>
+          <li>WordPress &amp; PHP</li>
           <li>Responsive Design</li>
+          <li>Git &amp; Version Control</li>
+          <li>Figma &amp; Design Tools</li>
           <li>Chrome DevTools</li>
-
         </ul>
       </section>
     </div>
@@ -72,10 +95,6 @@ import iaapMembershipBadge from '../assets/professional-member.png';
     padding: 0 var(--spacing);
   }
 
-  .hero {
-    
-  }
-
   .hero h1 {
     font-weight: 400;
     color: var(--color-text-muted);
@@ -83,7 +102,7 @@ import iaapMembershipBadge from '../assets/professional-member.png';
 
   .hero .subtitle {
     color: var(--color-text);
-    font-size: 3rem;
+    font-size: clamp(1.75rem, 5vw, 3rem);
     line-height: 1.3;
     font-weight: bold;
   }
@@ -91,6 +110,42 @@ import iaapMembershipBadge from '../assets/professional-member.png';
   .intro {
     font-size: 1.25rem;
     color: var(--color-text-muted);
+    max-inline-size: 40rem;
+  }
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    font-weight: 700;
+  }
+
+  .button:hover {
+    text-decoration: underline;
+  }
+
+  .button-primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .button-secondary {
+    color: var(--color-primary);
+  }
+
+  .badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
   section {
@@ -98,12 +153,9 @@ import iaapMembershipBadge from '../assets/professional-member.png';
   }
 
   .services-list {
-    list-style: none;
-    padding: 0;
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
     gap: 1.4rem;
   }
 
@@ -112,25 +164,33 @@ import iaapMembershipBadge from '../assets/professional-member.png';
     background-color: var(--color-primary);
     color: var(--color-surface);
     border-radius: 10px;
-    
+  }
+
+  .services-list article :last-child {
+    margin-bottom: 0;
+  }
+
+  .projects-grid {
     display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 2;
-    gap: 0.5rem;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .all-projects {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 700;
+  }
+
+  .skills h3 {
+    margin-top: 1.5rem;
   }
 
   .skills-list {
-    columns: 3;
-    padding-inline-start: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .intro {
-      font-size: 1.125rem;
-    }
-
-    .skills-list {
-      columns: 2;
-    }
+    list-style: disc;
+    padding-inline-start: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: 0.25rem 2rem;
   }
 </style>
