@@ -1,0 +1,146 @@
+---
+// src/components/a11y/Modal.astro
+// Accessible modal dialog built on the native <dialog> element.
+// The browser handles the focus trap, inert background, and Esc key.
+// This component adds the accessible name, focus return, backdrop click
+// to close, and scroll lock.
+interface Props {
+  id: string;
+  title: string;
+  triggerText: string;
+}
+
+const { id, title, triggerText } = Astro.props;
+const titleId = `${id}-title`;
+---
+
+<modal-dialog>
+  <button type="button" class="modal-trigger" data-modal-open>{triggerText}</button>
+
+  <dialog id={id} aria-labelledby={titleId}>
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h2 id={titleId}>{title}</h2>
+        <button type="button" class="modal-close" data-close>Close</button>
+      </div>
+      <div class="modal-body">
+        <slot />
+      </div>
+    </div>
+  </dialog>
+</modal-dialog>
+
+<script>
+  class ModalDialog extends HTMLElement {
+    connectedCallback() {
+      const dialog = this.querySelector('dialog');
+      const trigger = this.querySelector<HTMLElement>('[data-modal-open]');
+      if (!dialog || !trigger) return;
+
+      // Remember what opened the dialog so focus can return to it.
+      let opener: HTMLElement = trigger;
+
+      trigger.addEventListener('click', () => {
+        if (document.activeElement instanceof HTMLElement) {
+          opener = document.activeElement;
+        }
+        dialog.showModal();
+      });
+
+      this.querySelectorAll('[data-close]').forEach((button) => {
+        button.addEventListener('click', () => dialog.close());
+      });
+
+      // Close when the backdrop is clicked. Only if the press also started on
+      // the backdrop, so dragging to select text doesn't close the dialog.
+      let pressStartedOnBackdrop = false;
+      dialog.addEventListener('pointerdown', (event) => {
+        pressStartedOnBackdrop = event.target === dialog;
+      });
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog && pressStartedOnBackdrop) dialog.close();
+      });
+
+      // Runs for every way of closing: button, Esc, backdrop, or form method="dialog".
+      dialog.addEventListener('close', () => opener.focus());
+    }
+  }
+
+  if (!customElements.get('modal-dialog')) {
+    customElements.define('modal-dialog', ModalDialog);
+  }
+</script>
+
+<style>
+  .modal-trigger,
+  .modal-close {
+    font: inherit;
+    font-weight: 700;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+  }
+
+  .modal-trigger {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .modal-close {
+    background-color: transparent;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .modal-trigger:hover,
+  .modal-close:hover {
+    text-decoration: underline;
+  }
+
+  dialog {
+    /* The site's global reset sets margin: 0, which removes the dialog's
+       default centering, so restore it here. */
+    margin: auto;
+    padding: 0;
+    border: 2px solid var(--color-primary-dark);
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: var(--color-text);
+    inline-size: min(40rem, calc(100% - 2rem));
+    max-block-size: calc(100dvh - 2rem);
+  }
+
+  dialog::backdrop {
+    background-color: rgb(6 30 41 / 0.65);
+  }
+
+  .modal-inner {
+    padding: 1.5rem;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-block-end: 1rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.75rem;
+    margin-block-end: 0;
+    color: var(--color-primary-dark);
+  }
+
+  .modal-body > :last-child {
+    margin-block-end: 0;
+  }
+</style>
+
+<style is:global>
+  /* Prevent the page behind an open modal from scrolling. */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+</style>

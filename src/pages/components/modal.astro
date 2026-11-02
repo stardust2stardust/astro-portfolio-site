@@ -1,0 +1,151 @@
+---
+// src/pages/components/modal.astro
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Modal from '../../components/a11y/Modal.astro';
+---
+
+<Layout title="Accessible Modal Dialog - Jeni Hoyt" description="An accessible modal dialog built on the native dialog element, with keyboard support, focus management, and notes on the decisions behind it.">
+  <Header />
+
+  <main id="main-content">
+    <div class="container">
+      <h1>Accessible Modal Dialog</h1>
+      <p class="intro">
+        A modal dialog built on the native <code>&lt;dialog&gt;</code> element.
+        Open it with a mouse, a keyboard, or a screen reader and see how it behaves.
+      </p>
+
+      <section class="demo">
+        <h2>Try it</h2>
+        <Modal id="demo-modal" title="Subscribe to updates" triggerText="Open dialog">
+          <p>
+            This is a modal dialog. While it's open, the rest of the page is inert,
+            so focus can't reach it and assistive technology can't read it.
+          </p>
+          <p>
+            Press <kbd>Tab</kbd> to move through the controls, or <kbd>Esc</kbd> to close.
+            Focus returns to the button that opened the dialog.
+          </p>
+          <p><a href="/about">A link to try tabbing to</a></p>
+          <button type="button" class="got-it" data-close>Got it</button>
+        </Modal>
+      </section>
+
+      <section>
+        <h2>How it works</h2>
+        <p>
+          I used a native <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>
+          instead of a <code>div</code> with <code>role="dialog"</code>. The browser handles
+          the hardest parts of the pattern:
+        </p>
+        <ul>
+          <li>Moves focus into the dialog when it opens.</li>
+          <li>Makes everything outside the dialog inert, so it can't be focused, clicked, or read by a screen reader.</li>
+          <li>Closes the dialog when <kbd>Esc</kbd> is pressed.</li>
+          <li>Renders the dialog in the top layer, above everything else, with a <code>::backdrop</code>.</li>
+        </ul>
+        <p>What the component adds:</p>
+        <ul>
+          <li>An accessible name, from <code>aria-labelledby</code> pointing at the dialog's heading.</li>
+          <li>Focus returns to the element that opened the dialog, however it was closed.</li>
+          <li>Clicking the backdrop closes the dialog, but only if the click started there, so selecting text doesn't dismiss it.</li>
+          <li>Page scrolling is locked while the dialog is open.</li>
+          <li>A visible, text-labelled Close button, so the accessible name matches what's on screen.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Keyboard support</h2>
+        <table>
+          <caption class="sr-only">Keyboard interactions for the modal dialog</caption>
+          <thead>
+            <tr><th scope="col">Key</th><th scope="col">Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><kbd>Enter</kbd> or <kbd>Space</kbd> on the trigger</td><td>Opens the dialog and moves focus inside it</td></tr>
+            <tr><td><kbd>Tab</kbd> / <kbd>Shift</kbd> + <kbd>Tab</kbd></td><td>Moves between controls inside the dialog; the page behind is unreachable</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Closes the dialog and returns focus to the trigger</td></tr>
+            <tr><td><kbd>Enter</kbd> or <kbd>Space</kbd> on a close button</td><td>Closes the dialog and returns focus to the trigger</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!--
+        TODO: add a "Tested with" section here once you've tested the modal with
+        real assistive technology (e.g. VoiceOver + Safari). List what you tested
+        and anything unexpected you found.
+      -->
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-inline-size: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    max-inline-size: 40rem;
+  }
+
+  section {
+    padding-block: 2rem;
+  }
+
+  ul {
+    padding-inline-start: 1.5rem;
+    margin-block-end: 1rem;
+  }
+
+  li + li {
+    margin-block-start: 0.25rem;
+  }
+
+  code,
+  kbd {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+  }
+
+  .got-it {
+    font: inherit;
+    font-weight: 700;
+    margin-block-start: 1rem;
+    padding: 0.5rem 1.25rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+  }
+
+  th,
+  td {
+    text-align: start;
+    vertical-align: top;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+  }
+
+  th {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+</style>
