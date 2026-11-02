@@ -1,0 +1,53 @@
+---
+// src/pages/components/modal.astro
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout title="Accessible Modal Dialog - Jeni Hoyt" description="An accessible modal dialog built on the native dialog element, with keyboard support, focus management, and notes on the decisions behind it.">
+  <Header />
+
+  <main id="main-content">
+    <div class="container">
+      <h1>Accessible Components Lab</h1>
+      <p class="intro">
+        Explore a collection of accessible components built with best practices in mind.
+      </p>
+
+      <section class="components">
+        <h2>Components</h2>
+        <p>Click on a component to see more details.</p>
+        <ul>
+            <li><a href="/components/modal">Modal Dialog</a></li>
+        </ul>
+      </section>
+
+    
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-inline-size: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    max-inline-size: 40rem;
+  }
+
+  section {
+    padding-block: 2rem;
+  }
+
+  ul {
+    padding-inline-start: 1.5rem;
+    margin-block-end: 1rem;
+  }
+</style>
