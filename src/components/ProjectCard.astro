@@ -24,12 +24,12 @@ const { title, description, technologies, github, demo } = Astro.props;
   <div class="links">
     {github && (
       <a href={github} target="_blank" rel="noopener noreferrer">
-        GitHub →
+        GitHub <span aria-hidden="true">→</span><span class="sr-only">(opens in a new tab)</span>
       </a>
     )}
     {demo && (
       <a href={demo} target="_blank" rel="noopener noreferrer">
-        Live Demo →
+        Live Demo <span aria-hidden="true">→</span><span class="sr-only">(opens in a new tab)</span>
       </a>
     )}
   </div>

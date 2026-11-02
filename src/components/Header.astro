@@ -5,14 +5,14 @@ const currentPath = Astro.url.pathname;
 
 <header>
   <div class="container">
-    <nav>
-      <a href="/" class="logo">Kaizen<span>Web</span></a>
+    <nav aria-label="Main Navigation">
+      <a href="/" class="logo">Jeni <span>Hoyt</span></a>
       <ul>
         <li>
-          <a href="/about" class={currentPath === '/about' ? 'active' : ''}>About</a>
+          <a href="/about" aria-current={currentPath === '/about' ? 'page' : undefined}>About</a>
         </li>
         <li>
-          <a href="/projects" class={currentPath === '/projects' ? 'active' : ''}>Projects</a>
+          <a href="/projects" aria-current={currentPath === '/projects' ? 'page' : undefined}>Projects</a>
         </li>
       </ul>
     </nav>
@@ -61,14 +61,14 @@ const currentPath = Astro.url.pathname;
   }
 
   a {
-    color: var(--color-text-muted);
+    color: var(--color-text);
     transition: color 0.2s;
   }
 
   a:hover,
-  a.active {
+  a[aria-current="page"] {
     color: var(--color-text);
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   @media (max-width: 768px) {
