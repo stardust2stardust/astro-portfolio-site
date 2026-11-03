@@ -16,21 +16,58 @@ import Modal from '../../components/a11y/Modal.astro';
         A modal dialog built on the native <code>&lt;dialog&gt;</code> element.
         Open it with a mouse, a keyboard, or a screen reader and see how it behaves.
       </p>
-
+      
+      
       <section class="demo">
         <h2>Try it</h2>
-        <Modal id="demo-modal" title="Subscribe to updates" triggerText="Open dialog">
-          <p>
-            This is a modal dialog. While it's open, the rest of the page is inert,
-            so focus can't reach it and assistive technology can't read it.
-          </p>
-          <p>
-            Press <kbd>Tab</kbd> to move through the controls, or <kbd>Esc</kbd> to close.
-            Focus returns to the button that opened the dialog.
-          </p>
-          <p><a href="/about">A link to try tabbing to</a></p>
-          <button type="button" class="got-it" data-close>Got it</button>
-        </Modal>
+        <div class="modal-example">
+        <h3>Invoker commands API</h3>
+        <p>I followed MDN and built one that uses the invoker command api. It was the quickest way to build it. However, the Baseline shows that although it is supported by all latest devices and browser, the support is new.</p>
+            <button command="show-modal" commandfor="dialog-with-invoker-command" class="btn btn-primary">Open Modal (invoker commands api)</button>
+            <dialog id="dialog-with-invoker-command">
+              <p>This is a modal dialog. It uses the "show-modal" and "close" commands with the invoker commands API.</p>
+              <button commandfor="dialog-with-invoker-command" command="close" class="btn btn-primary">Close</button>
+            </dialog>   
+        </div>
+        <div class="modal-example">
+         <h3>HTMLDialogElement interface</h3>
+         <p>Then I built one using the showModal() and close() methods of the HTMLDialogElement interface. Its has had Baseline support since 2022.</p>
+            <button id="show-js-modal" class="btn btn-primary">Open Modal (using JS)</button>
+            <dialog id="dialog-with-js">
+              <p>This is a modal dialog.</p>
+              <button id="close-js-modal" class="btn btn-primary">Close</button>
+            </dialog>
+            <script>
+                const dialogWithJS = document.getElementById('dialog-with-js') as HTMLDialogElement | null;
+                const showButton = document.getElementById('show-js-modal');
+                const closeButton = document.getElementById('close-js-modal');
+
+                showButton?.addEventListener("click", () => {
+                    dialogWithJS?.showModal();
+                })
+
+                closeButton?.addEventListener("click", () => {
+                    dialogWithJS?.close();       
+                })
+            </script>
+        </div>
+        <div class="modal-example">
+            <h3>Custom component</h3>
+            <Modal id="demo-modal" title="Subscribe to updates" triggerText="Open dialog">
+              <p>
+                This is a modal dialog. While it's open, the rest of the page is inert,
+                so focus can't reach it and assistive technology can't read it.
+              </p>
+              <p>
+                Press <kbd>Tab</kbd> to move through the controls, or <kbd>Esc</kbd> to close.
+                Focus returns to the button that opened the dialog.
+              </p>
+              <p><a href="/about">A link to try tabbing to</a></p>
+              <button type="button" class="got-it" data-close>Got it</button>
+            </Modal>
+        </div>
+      
+        
       </section>
 
       <section>
@@ -99,6 +136,10 @@ import Modal from '../../components/a11y/Modal.astro';
     padding-block: 2rem;
   }
 
+  .modal-example {
+    margin-block-end: 2rem;
+  }
+
   ul {
     padding-inline-start: 1.5rem;
     margin-block-end: 1rem;
@@ -118,7 +159,8 @@ import Modal from '../../components/a11y/Modal.astro';
     padding: 0.05em 0.35em;
   }
 
-  .got-it {
+  .got-it,
+  .btn-primary {
     font: inherit;
     font-weight: 700;
     margin-block-start: 1rem;

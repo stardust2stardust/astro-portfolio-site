@@ -23,9 +23,19 @@ import Footer from '../../components/Footer.astro';
         </ul>
       </section>
 
+      <section class="sandbox">
+        <h2>Sandbox</h2>
+        <p>Experiment with accessible components here.</p>
+
+        <div class="component-wrapper">
+        
+        </div>
+      </section>
     
     </div>
   </main>
+
+
 
   <Footer />
 </Layout>
@@ -48,6 +58,17 @@ import Footer from '../../components/Footer.astro';
 
   ul {
     padding-inline-start: 1.5rem;
+    margin-block-end: 1rem;
+  }
+  .component-wrapper {
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    display: block;
     margin-block-end: 1rem;
   }
 </style>
